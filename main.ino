@@ -3,7 +3,7 @@
 // Switches are connected from ground to these defined pins
 const int PIN_BUTTON_CAPITAL_A = 9;
 const int PIN_BUTTON_STRING    = 10;
-boolean debug=true;
+boolean debug=false;
 void setup() {
   // Open serial communications and wait for port to open:
   Serial.begin(9600);
@@ -88,6 +88,10 @@ if(thisChar==8){
       TrinketKeyboard.typeChar(60);
     }else if(thisChar==38){
       TrinketKeyboard.typeChar(94);
+    }else if(thisChar==9){
+           TrinketKeyboard.pressKey(0,KEYCODE_TAB);
+    TrinketKeyboard.pressKey(0, 0);
+
     }else if(thisChar==165){
    TrinketKeyboard.typeChar(91);
 thisChar =10;
@@ -101,6 +105,10 @@ thisChar =10;
 
     }else if (isControl(thisChar)) {
       Serial.println("it's a control character");
+Serial.print("You sent me: \'");
+  Serial.write(thisChar);
+Serial.print("\'  ASCII Value: ");
+    Serial.println(thisChar);    
       if (Serial.available() > 0) {
 
       Serial.println("2");
@@ -148,9 +156,7 @@ Serial.print("\'  ASCII Value: ");
     if (isWhitespace(thisChar)) {
       Serial.println("it's whitespace");
     }
-    if (isControl(thisChar)) {
-      Serial.println("it's a control character");
-    }
+  
     if (isDigit(thisChar)) {
       Serial.println("it's a numeric digit");
     }
